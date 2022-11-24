@@ -236,6 +236,10 @@ function switchClk([input, source]) {
   if (prevPause !== -1) {
     return;
   }
+  // Make sound here.
+  let audio = new Audio("clock.wav");
+  audio.loop = false;
+  audio.play();
   if (act1) {
     time1 += increment * 1;
     act1 = false;
@@ -311,6 +315,7 @@ function updateClk() {
     timeStr1 = `${hours}:${minutes}:${seconds}`;
     document.getElementById("clock1").innerHTML = timeStr1;
     if (time1 <= 0) {
+      timesup();
       document.getElementById("clock1").className = "clockTimeOut";
       window.alert("PLAYER-1 OUT OF TIME. PLAYER-2 WINS!!");
       act1 = false;
@@ -350,6 +355,7 @@ function updateClk() {
     timeStr2 = `${hours}:${minutes}:${seconds}`;
     document.getElementById("clock2").innerHTML = timeStr2;
     if (time2 <= 0) {
+      timesup();
       document.getElementById("clock2").className = "clockTimeOut";
       window.alert("PLAYER-2 OUT OF TIME. PLAYER-1 WINS!!");
       act1 = false;
@@ -380,4 +386,10 @@ function getTimeString(timeIpt) {
   }
   return `${hours}:${minutes}:${seconds}`;
   //   document.getElementById("clock1").innerHTML = timeStr1;
+}
+
+function timesup() {
+  let audio = new Audio("timeupscut.mp3");
+  audio.loop = false;
+  audio.play();
 }
