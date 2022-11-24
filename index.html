@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Chess Clock</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- 24afce -->
+    <script src="index.js"></script>
+
+    <div id="inputs">
+      <label for="increment">Time Increment:</label>
+
+      <input type="text" id="increment" placeholder="0s" />
+      <button type="button" id="incr" class="setBtn" onclick="setIncr()">
+        Set
+      </button>
+      <span id="incrText"></span>
+      <br />
+      <br />
+      <div>
+        <label for="player-1">Player-1 Time:</label>
+        <input type="text" id="player-1-hours" placeholder="0 hours" />
+        <input type="text" id="player-1-mins" placeholder="0 minutes" />
+        <input type="text" id="player-1-secs" placeholder="0 seconds" />
+        <button
+          type="button"
+          id="setTime-1"
+          class="setBtn"
+          onclick="setTime(`clock1`)"
+        >
+          Set
+        </button>
+      </div>
+      <br />
+      <div>
+        <label for="player-2">Player-2 Time:</label>
+        <input type="text" id="player-2-hours" placeholder="0 hours" />
+        <input type="text" id="player-2-mins" placeholder="0 minutes" />
+        <input type="text" id="player-2-secs" placeholder="0 seconds" />
+        <button
+          type="button"
+          id="setTime-2"
+          class="setBtn"
+          onclick="setTime(`clock2`)"
+        >
+          Set
+        </button>
+      </div>
+    </div>
+
+    <p>
+      Shortcuts: <span class="bold">SPACE</span> to switch/start,
+      <span class="bold">P</span> to pause/unpause,
+      <span class="bold">R</span> to reset.
+    </p>
+
+    <div id="outer">
+      <!-- <input type="text" id="name1" placeholder="Player-1" /> -->
+      <div
+        onclick="switchClk([`notBtn`, `clock1`])"
+        class="clock"
+        id="clock1"
+      ></div>
+      <!-- <input type="text" id="name2" placeholder="Player-2" /> -->
+      <div
+        onclick="switchClk([`notBtn`, `clock2`])"
+        class="clock"
+        id="clock2"
+      ></div>
+    </div>
+
+    <div id="panel">
+      <button
+        type="button"
+        id="start"
+        class="btnClass"
+        onclick="switchClk(`btn`)"
+      >
+        Switch
+      </button>
+      <button type="button" id="pause" class="btnClass" onclick="pause()">
+        Pause
+      </button>
+      <button type="button" id="reset" class="btnClass" onclick="clockReset()">
+        Reset
+      </button>
+      <!-- <button type="button" id="update" class="btnClass" onclick="updateClk()">
+        Update
+      </button> -->
+    </div>
+
+    <script>
+      // Called AFTER the divs for the clock have been set.
+      clockReset();
+    </script>
+  </body>
+</html>
