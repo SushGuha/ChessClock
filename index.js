@@ -13,10 +13,22 @@ let prevPause = -1;
 function setIncr() {
   let inIncr = document.getElementById("increment").value;
   if (isNaN(inIncr)) {
+    document.getElementById("increment").value = "";
     window.alert("Must input numbers");
     return;
   }
+  if (1 * inIncr < 0) {
+    document.getElementById("increment").value = "";
+    window.alert("Must input positives numbers");
+    return;
+  }
   increment = 1 * inIncr;
+
+  if (increment % 0.5 !== 0) {
+    window.alert("Only increments of multiples of 0.5 are allowed.");
+    increment = Math.round(increment);
+  }
+
   document.getElementById("incrText").innerHTML = `${increment} s`;
   document.getElementById("increment").value = "";
 }
@@ -37,8 +49,31 @@ function setTime(id) {
       seconds = 0;
     }
     if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
+      document.getElementById("player-1-hours").value = "";
+      document.getElementById("player-1-mins").value = "";
+      document.getElementById("player-1-secs").value = "";
       window.alert("Must input numbers");
       return;
+    }
+    if (seconds < 0 || minutes < 0 || hours < 0) {
+      document.getElementById("player-1-hours").value = "";
+      document.getElementById("player-1-mins").value = "";
+      document.getElementById("player-1-secs").value = "";
+      window.alert("Must input positive numbers");
+      return;
+    }
+
+    if (seconds % 0.5 !== 0) {
+      window.alert("Only multiples of 0.5 are allowed.");
+      seconds = Math.round(seconds);
+    }
+    if (minutes % 0.5 !== 0) {
+      window.alert("Only multiples of 0.5 are allowed.");
+      minutes = Math.round(minutes);
+    }
+    if (hours % 0.5 !== 0) {
+      window.alert("Only multiples of 0.5 are allowed.");
+      hours = Math.round(hours);
     }
 
     time1 = seconds * 1 + minutes * 60 + hours * 3600;
@@ -57,7 +92,9 @@ function setTime(id) {
       minutes = `0${minutes}`;
     }
     if (seconds < 10) {
-      seconds = `0${seconds}`;
+      if ((seconds * 10) % 10 === 0) {
+        seconds = `0${seconds}`;
+      }
     }
     timeStr1 = `${hours}:${minutes}:${seconds}`;
     document.getElementById("clock1").innerHTML = timeStr1;
@@ -79,9 +116,33 @@ function setTime(id) {
       seconds = 0;
     }
     if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
+      document.getElementById("player-2-hours").value = "";
+      document.getElementById("player-2-mins").value = "";
+      document.getElementById("player-2-secs").value = "";
       window.alert("Must input numbers");
       return;
     }
+
+    if (seconds < 0 || minutes < 0 || hours < 0) {
+      document.getElementById("player-2-hours").value = "";
+      document.getElementById("player-2-mins").value = "";
+      document.getElementById("player-2-secs").value = "";
+      window.alert("Must input positive numbers");
+      return;
+    }
+    if (seconds % 0.5 !== 0) {
+      window.alert("Only multiples of 0.5 are allowed.");
+      seconds = Math.round(seconds);
+    }
+    if (minutes % 0.5 !== 0) {
+      window.alert("Only multiples of 0.5 are allowed.");
+      minutes = Math.round(minutes);
+    }
+    if (hours % 0.5 !== 0) {
+      window.alert("Only multiples of 0.5 are allowed.");
+      hours = Math.round(hours);
+    }
+
     time2 = seconds * 1 + minutes * 60 + hours * 3600;
 
     minutes = Math.floor(time2 / 60);
@@ -98,7 +159,9 @@ function setTime(id) {
       minutes = `0${minutes}`;
     }
     if (seconds < 10) {
-      seconds = `0${seconds}`;
+      if ((seconds * 10) % 10 === 0) {
+        seconds = `0${seconds}`;
+      }
     }
     timeStr2 = `${hours}:${minutes}:${seconds}`;
 
@@ -124,6 +187,8 @@ function clockReset() {
   increment = 0;
   document.getElementById("pause").innerHTML = "Pause";
   document.getElementById("incrText").innerHTML = ``;
+  document.getElementById("clock1").className = "clock";
+  document.getElementById("clock2").className = "clock";
 }
 
 function changeInputs() {
@@ -217,7 +282,7 @@ function updateClk() {
   if (act1) {
     time1--;
     if (time1 < 60) {
-      if (time2 % 2 === 0) {
+      if (time1 % 2 === 0) {
         document.getElementById("clock1").className = "clockTimeOut";
       } else {
         document.getElementById("clock1").className = "clockFlashing";
@@ -239,11 +304,13 @@ function updateClk() {
       minutes = `0${minutes}`;
     }
     if (seconds < 10) {
-      seconds = `0${seconds}`;
+      if ((seconds * 10) % 10 === 0) {
+        seconds = `0${seconds}`;
+      }
     }
     timeStr1 = `${hours}:${minutes}:${seconds}`;
     document.getElementById("clock1").innerHTML = timeStr1;
-    if (time1 === 0) {
+    if (time1 <= 0) {
       document.getElementById("clock1").className = "clockTimeOut";
       window.alert("PLAYER-1 OUT OF TIME. PLAYER-2 WINS!!");
       act1 = false;
@@ -276,11 +343,13 @@ function updateClk() {
       minutes = `0${minutes}`;
     }
     if (seconds < 10) {
-      seconds = `0${seconds}`;
+      if ((seconds * 10) % 10 === 0) {
+        seconds = `0${seconds}`;
+      }
     }
     timeStr2 = `${hours}:${minutes}:${seconds}`;
     document.getElementById("clock2").innerHTML = timeStr2;
-    if (time2 === 0) {
+    if (time2 <= 0) {
       document.getElementById("clock2").className = "clockTimeOut";
       window.alert("PLAYER-2 OUT OF TIME. PLAYER-1 WINS!!");
       act1 = false;
