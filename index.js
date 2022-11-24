@@ -122,6 +122,7 @@ function clockReset() {
   showIps = true;
   changeInputs();
   increment = 0;
+  document.getElementById("pause").innerHTML = "Pause";
   document.getElementById("incrText").innerHTML = ``;
 }
 
